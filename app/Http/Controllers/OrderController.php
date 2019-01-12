@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Payment;
 use Auth;
+use App\Payment;
 
 class OrderController extends Controller
 {

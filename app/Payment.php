@@ -21,7 +21,7 @@ class Payment extends Model
      *
      * @var array
      */
-    protected $fillable = ['transaction_type', 'transaction_code', 'description', 'total', 'status'];
+    protected $fillable = ['transaction_type', 'transaction_code', 'description', 'total', 'user_id', 'status'];
 
     /**
     * The attributes that are addable.

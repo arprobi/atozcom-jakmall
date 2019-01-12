@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
+use App\Payment;
 
 class Product extends Model
 {
@@ -40,6 +42,7 @@ class Product extends Model
 
         Product::saved(function ($product) {
             $payment = Payment::create([
+                'user_id'           => Auth::user()->id,
                 'transaction_type'  => 2,
                 'transaction_code'  => $product->transaction_code,
                 'description'       => $product->product_name.' that cost '.format_IDR(($product->price + 10000)),

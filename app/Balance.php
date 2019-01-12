@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 use App\Payment;
 
 class Balance extends Model
@@ -49,6 +50,7 @@ class Balance extends Model
 
         Balance::saving(function ($balance) {
             $payment = Payment::create([
+                'user_id'           => Auth::user()->id,
                 'transaction_type'  => 1,
                 'transaction_code'  => $balance->transaction_code,
                 'description'       => formatNumber($balance->value).' For '.$balance->phone_number,
