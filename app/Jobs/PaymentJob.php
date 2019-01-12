@@ -34,7 +34,7 @@ class PaymentJob implements ShouldQueue
     public function handle()
     {
         $data = Payment::findOrFail($this->payment->id);
-        $data->status = mt_rand(1, 3);
+        $data->status = 1;
         $data->save();
     }
 }
