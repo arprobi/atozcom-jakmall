@@ -10,7 +10,7 @@
 			<br>
 			
 			<h5 class="card-title">Total</h5>
-			<p class="card-text">{{ $payment->total }}</p>
+			<p class="card-text">{{ format_IDR($payment->total) }}</p>
 			
 			<br>
 
@@ -20,7 +20,7 @@
 				<p class="card-text">{{ $payment->description }} will be topped up for {{ $payment->ordered_item->value }}</p>
 			@endif
 			
-			<a href="#" class="btn btn-primary">Pay Here</a>
+			<a href="{{ url('payment?order_number='.$payment->transaction_code) }}" class="btn btn-primary">Pay Here</a>
 		</div>
 	</div>
 </div>

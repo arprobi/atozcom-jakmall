@@ -18,7 +18,7 @@ class ProductController extends Controller
     	$request->validate([
 			'product_name' 		=> 'required|min:10|max:150',
 			'shipping_address' 	=> 'required|min:10|max:150',
-			'price' => 'required',
+			'price' 			=> 'required',
 		]);
 
 		$data = Product::create([
@@ -26,7 +26,8 @@ class ProductController extends Controller
 			'product_name' 		=> $request->product_name,
 			'shipping_address' 	=> $request->shipping_address,
 			'price' 			=> $request->price,
-			'user_id'			=> Auth::user()->id
+			'shipping_code' 	=> randomString(),
+			'user_id'			=> Auth::user()->id,
 		]);
 
 		return redirect()->route('payment.detail', ['transaction_code' => $data->transaction_code]);

@@ -51,7 +51,7 @@ class Balance extends Model
             $payment = Payment::create([
                 'transaction_type'  => 1,
                 'transaction_code'  => $balance->transaction_code,
-                'description'       => $balance->value.' For '.$balance->phone_number,
+                'description'       => formatNumber($balance->value).' For '.$balance->phone_number,
                 'total'             => $balance->value + (0.05 * $balance->value),
                 'status'            => 0,
             ]);

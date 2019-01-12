@@ -21,7 +21,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['transaction_code', 'product_name', 'shipping_address', 'price', 'user_id'];
+    protected $fillable = ['transaction_code', 'product_name', 'shipping_address', 'price', 'shipping_code', 'user_id'];
 
     /**
      * Model relationship.
@@ -42,7 +42,7 @@ class Product extends Model
             $payment = Payment::create([
                 'transaction_type'  => 2,
                 'transaction_code'  => $product->transaction_code,
-                'description'       => $product->product_name.' that cost '.($product->price + 10000),
+                'description'       => $product->product_name.' that cost '.format_IDR(($product->price + 10000)),
                 'total'             => $product->price + 10000,
                 'status'            => 0,
             ]);

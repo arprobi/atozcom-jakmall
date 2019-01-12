@@ -28,7 +28,7 @@ class Payment extends Model
     *
     * @var array
     */
-    protected $appends = ['type_name', 'ordered_item'];
+    protected $appends = ['type_name', 'ordered_item', 'status_name'];
 
     /**
      * Getter attributes.
@@ -47,6 +47,37 @@ class Payment extends Model
             $data = Balance::where('transaction_code', $this->attributes['transaction_code'])->first();
             return $data;
         }
+    }
+
+    public function getStatusNameAttribute()
+    {
+        if($this->attributes['status'] === 0) {
+            return '<a href="'. url('/payment?order_number='.$this->attributes['transaction_code']) .'" class="btn btn-outline-primary"> Pay </a>';
+        } else if($this->attributes['status'] === 1) {
+            if ($this->attributes['transaction_type'] == 1) {
+                return '<span class="badge badge-success">Success</span>';
+            } else {
+                $product = Product::where('transaction_code', $this->attributes['transaction_code'])->first();
+                return 'Shipping Code : '.$product->shipping_code;
+            }
+        } else if($this->attributes['status'] === 2){
+            return '<span class="badge badge-warning">Canceled</span>';
+        } else {
+            return '<span class="badge badge-danger">Failed</span>';
+        }
+    }
+
+    /**
+     * Scope a query to search order.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $key)
+    {
+        return $query->where('transaction_code', 'like', '%'.$key.'%')
+                    ->orWhere('description', 'like', '%'.$key.'%')
+                    ->orWhere('total', 'like', '%'.$key.'%');
     }
 
 }

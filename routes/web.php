@@ -32,12 +32,13 @@ Route::group(['middleware' => ['web', 'auth']], function() {
 
 	Route::group(['prefix' => 'payment', 'as' => 'payment.'], function() {
 		Route::get('/', 'PaymentController@index')->name('index');
+		Route::post('/', 'PaymentController@pay')->name('pay');
 		Route::get('/{transaction_code}', 'PaymentController@detail')->name('detail');
-		Route::post('/{transaction_code}', 'PaymentController@pay')->name('pay');
 	});
 
 	Route::group(['prefix' => 'order', 'as' => 'order.'], function() {
 		Route::get('/', 'OrderController@index')->name('index');
+		Route::post('/search', 'OrderController@search')->name('search');
 	});
 });
 

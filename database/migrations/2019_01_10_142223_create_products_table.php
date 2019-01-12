@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name', 150);
             $table->string('shipping_address', 150);
             $table->string('price', 10);
+            $table->string('shipping_code', 8)->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
